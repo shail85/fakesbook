@@ -1,0 +1,5 @@
+<%= @title %>
+<h1>User profile for <%= [@user_profile.forename, @user_profile.surname].join(" ") %><h1>
+<p>Screen Name: <%= @user_profile.username %></p>
+<p>E-Mail <%= @user_profile.email %></p>
+<p>Town/city <%= @user_profile.town %></p>

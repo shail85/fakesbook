@@ -1,0 +1,46 @@
+<div class="left">
+<p>Screen Name: <%= current_user.username %></p>
+<p>Forename:     <%= current_user.forename %></p>
+<p>Surname:      <%= current_user.surname %></p>
+<p>E-Mail:   	<%= current_user.email %></p>
+<p>Town/city:      <%= current_user.town %></p>
+<p>Occupation:    <%= current_user.occupation %></p>
+<p><%= link_to "Edit Profile", :controller => 'users', :action => 'edit', :id =>current_user.id %></p>
+<h2> Your Hobbies<h2>
+<ul>
+<% current_user.hobby.each do |h| %>
+<li><%= h.name %>
+
+<%= link_to "Edit",
+	:controller => 'hobbies',
+	:action => 'edithobby',
+	:id=> h.id
+%> |
+<%= link_to "Delete",
+	 :controller => 'hobbies',
+	 :action => 'delete',
+	 :id=> h.id
+%>
+</li>
+<% end %>
+</ul>
+<p><%= link_to "Add New Hobby", :controller => 'hobbies', :action => 'add'%></p>
+</div>
+<div class="right">
+<h2> Friend List </h2>
+<%= @friendship %>
+<ul><% current_user.friendship.each do |f| %>
+<li><%= f.friend.username %>
+<% if f.status == 'accepted' %>
+<%= link_to 'Delete', :controller => :friendships, :action => :delete, :id => f.friend_id %>
+<% elsif f.status == 'requested'%> Requested for friendship
+( <%=
+link_to 'Accept', :controller=> :friendships, :action => :accept, :id => f.friend_id %> |
+<%= link_to 'Reject', :controller => :friendships, :action => :reject, :id => f.friend_id
+%>)
+<% else %> Pending friend request
+<% end %>
+<% end %>
+</li>
+</ul>
+</div>

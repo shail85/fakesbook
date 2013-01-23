@@ -1,0 +1,115 @@
+Fakebook::Application.routes.draw do
+
+  # This line mounts Spree's routes at the root of your application.
+  # This means, any requests to URLs such as /products, will go to Spree::ProductsController.
+  # If you would like to change where this engine is mounted, simply change the :at option to something different.
+  #
+  # We ask that you don't use the :as option here, as Spree relies on it being the default of "spree"
+#  mount Spree::Core::Engine, :at => '/'
+
+resources :friendships
+match '/friendships/req/:id(.:format)',
+:controller=>'friendships',
+:action => "req"
+match '/friendships/accept/:id(.:format)', :controller => 'friendships', :action => 'accept'
+match '/friendships/reject/:id(.:format)', :controller => 'friendships', :action => 'reject'
+match '/friendships/delete/:id(.:format)', :controller => 'friendships', :action => 'delete'
+
+  get "hobbies/add"
+
+  get "hobbies/edit"
+
+  get "users_session/new"
+
+  resources :users
+
+
+  #get "users/register"
+
+  get "test/index"
+
+  get "test/about"
+
+  get "test/help"
+
+resources :sites
+root :to => 'sites#index'
+match 'about' => 'sites#about'
+match 'help' => 'sites#help'
+
+resources :users
+match 'register', :controller => 'users', :action => 'new'
+match '/users/profile/:id(.:format)', :controller =>'users', :action =>'profile'
+match '/users/find_by_town/:id(.:format)', :controller =>'users', :action =>'find_by_town'
+match '/users/edit', :controller => 'users', :action => 'edit'
+
+resources :user_sessions
+match 'login', :controller =>'user_sessions', :action => 'new'
+match 'logout', :controller => 'user_sessions', :action =>'destroy'
+
+resources :hobbies
+match 'hobbies/add', :controller => 'hobbies', :action => 'add'
+match 'hobbies/edithobby/:id(.:format)', :controller => 'hobbies', :action =>'edithobby'
+match 'hobbies/delete/:id(.:format)', :controller => 'hobbies', :action =>'delete'
+#match 'hobbies/destroy', :controller => 'hobbies', :action =>'destroy'
+
+#match 'users' =>'users#register'
+#match '/users/register' => 'users#register'
+#match 'users/login' => 'users#login'
+  # The priority is based upon order of creation:
+  # first created -> highest priority.
+#root :to => 'site#index'
+  # Sample of regular route:
+  #   match 'products/:id' => 'catalog#view'
+  # Keep in mind you can assign values other than :controller and :action
+
+  # Sample of named route:
+  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
+  # This route can be invoked with purchase_url(:id => product.id)
+
+  # Sample resource route (maps HTTP verbs to controller actions automatically):
+  #   resources :products
+
+  # Sample resource route with options:
+  #   resources :products do
+  #     member do
+  #       get 'short'
+  #       post 'toggle'
+  #     end
+  #
+  #     collection do
+  #       get 'sold'
+  #     end
+  #   end
+
+  # Sample resource route with sub-resources:
+  #   resources :products do
+  #     resources :comments, :sales
+  #     resource :seller
+  #   end
+
+  # Sample resource route with more complex sub-resources
+  #   resources :products do
+  #     resources :comments
+  #     resources :sales do
+  #       get 'recent', :on => :collection
+  #     end
+  #   end
+
+  # Sample resource route within a namespace:
+  #   namespace :admin do
+  #     # Directs /admin/products/* to Admin::ProductsController
+  #     # (app/controllers/admin/products_controller.rb)
+  #     resources :products
+  #   end
+
+  # You can have the root of your site routed with "root"
+  # just remember to delete public/index.html.
+  # root :to => 'welcome#index'
+
+  # See how all your routes lay out with "rake routes"
+
+  # This is a legacy wild controller route that's not recommended for RESTful applications.
+  # Note: This route will make all actions in every controller accessible via GET requests.
+  #match ':controller(/:action(/:id))(.:format)'
+end

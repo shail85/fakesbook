@@ -1,0 +1,14 @@
+class AddProfile < ActiveRecord::Migration
+  def up
+	add_column :users, :surname, :stirng
+	add_column :users, :occupation, :string
+	add_column :users, :town, :string
+  end
+
+  def down
+	remove_column :users, :surname, :stirng
+	remove_column :users, :occupation, :string
+	remove_column :users, :town, :string
+
+  end
+end

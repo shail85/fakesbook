@@ -1,0 +1,5 @@
+<%= @title %>
+<h1> All users from <%= @user_from %></h1>
+<ul><% @user_all.each do |user_all| %></ul>
+<li> <%= link_to [user_all.forename, user_all.surname].join(" "), :controller => :users, :action => :find_by_town, :id => user_all.town %></li>
+<% end %>

@@ -1,0 +1,9 @@
+class SiteController < ApplicationController
+	def index
+		render :text => 'hello world'
+#		@title = 'Fakebook'
+	end
+	def about
+		@title ='About Us'
+	end
+end

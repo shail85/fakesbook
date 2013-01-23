@@ -1,0 +1,12 @@
+<%= form_for @edit do |e| %>
+
+<p>
+  <%= e.label :name %>
+  <%= e.text_field :name%>
+</p>
+<p>
+  <%= e.label :description %>
+  <%= e.text_area :description %>
+</p>
+<p><%= e.submit :Submit %></p>
+<% end %>

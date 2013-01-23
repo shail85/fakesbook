@@ -1,0 +1,27 @@
+<h1> All users from <%= @user_from %></h1>
+<ul><% @user_all.each do |user_all| %></ul>
+<% if current_user.id != user_all.id %>
+<li> <%= link_to [user_all.forename, user_all.surname].join(" "),
+					:controller => :users,
+					:action => :profile,
+					:id => user_all.username
+%>
+<% if Friendship.are_friends(current_user.id, user_all.id)
+	@user_status = Friendship.find_by_user_id_and_friend_id(current_user.id, user_all.id)
+	@friend_status = Friendship.find_by_user_id_and_friend_id(user_all.id, current_user.id)
+%>
+	<% if @user_status.status == 'accepted' %>
+	Friend
+	<% elsif @user_status.status == 'pending' %> Waiting for response
+	<% else %>
+		Requested for friendship
+	<% end %>
+<% else %>
+<%= link_to "Add as friend",:controller => :friendships,
+			    :action => :req,
+		  	    :id => user_all.username
+%>
+</li>
+<% end %>
+<% end %>
+<% end %>
